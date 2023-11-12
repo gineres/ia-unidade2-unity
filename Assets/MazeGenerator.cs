@@ -14,6 +14,9 @@ public class MazeGenerator : MonoBehaviour
     [SerializeField]
     private int mazeDepth;
 
+    [SerializeField]
+    private float wallSpacing = 1.5f; // Adjust this value to control the spacing between walls
+
     private MazeCell[,] mazeGrid;
 
     void Start()
@@ -24,19 +27,14 @@ public class MazeGenerator : MonoBehaviour
         {
             for (int y = 0; y < mazeDepth; y++)
             {
-                mazeGrid[x, y] = Instantiate(mazeCellPrefab, new Vector3(x, y, 0), Quaternion.identity);
+                float xPos = x * wallSpacing;
+                float yPos = y * wallSpacing;
+
+                mazeGrid[x, y] = Instantiate(mazeCellPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
             }
         }
 
         GenerateMaze(null, mazeGrid[0, 0]);
-
-        /*for (int x = 0; x < mazeWidth; x++)
-        {
-            for (int y = 0; y < mazeDepth; y++)
-            {
-                mazeGrid[x, y].transform.position = new Vector2(x + ((mazeWidth - 1) / -2f), y + ((mazeDepth - 1) / -2f));
-            }
-        }*/
 
         Grid grid = GameObject.Find("A*").GetComponent<Grid>();
         grid.CreateGrid();
@@ -69,8 +67,8 @@ public class MazeGenerator : MonoBehaviour
 
     private IEnumerable<MazeCell> GetUnvisitedCells(MazeCell currentCell)
     {
-        int x = (int)currentCell.transform.position.x;
-        int y = (int)currentCell.transform.position.y;
+        int x = (int)(currentCell.transform.position.x / wallSpacing);
+        int y = (int)(currentCell.transform.position.y / wallSpacing);
 
         if (x + 1 < mazeWidth)
         {
