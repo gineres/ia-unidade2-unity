@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node : MonoBehaviour
+public class Node
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public bool IsWalkable {get; set;}
+    public Vector3 WorldPosition {get; set;}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public Node(bool isWalkable, Vector3 worldPosition){
+        IsWalkable = isWalkable;
+        WorldPosition = worldPosition;
     }
 }

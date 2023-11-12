@@ -5,45 +5,45 @@ using UnityEngine;
 public class MazeCell : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _leftWall;
+    private GameObject leftWall;
 
     [SerializeField]
-    private GameObject _rightWall;
+    private GameObject rightWall;
 
     [SerializeField]
-    private GameObject _frontWall;
+    private GameObject frontWall;
 
     [SerializeField]
-    private GameObject _backWall;
+    private GameObject backWall;
 
     [SerializeField]
-    private GameObject _unvisitedBlock;
+    private GameObject unvisitedBlock;
 
     public bool IsVisited { get; private set; }
 
     public void Visit()
     {
         IsVisited = true;
-        _unvisitedBlock.SetActive(false);
+        unvisitedBlock.SetActive(false);
     }
 
     public void ClearLeftWall()
     {
-        _leftWall.SetActive(false);
+        leftWall.SetActive(false);
     }
 
     public void ClearRightWall()
     {
-        _rightWall.SetActive(false);
+        rightWall.SetActive(false);
     }
 
     public void ClearFrontWall()
     {
-        _frontWall.SetActive(false);
+        frontWall.SetActive(false);
     }
 
     public void ClearBackWall()
     {
-        _backWall.SetActive(false);
+        backWall.SetActive(false);
     }
 }

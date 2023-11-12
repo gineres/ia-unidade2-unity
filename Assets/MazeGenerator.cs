@@ -6,37 +6,40 @@ using UnityEngine;
 public class MazeGenerator : MonoBehaviour
 {
     [SerializeField]
-    private MazeCell _mazeCellPrefab;
+    private MazeCell mazeCellPrefab;
 
     [SerializeField]
-    private int _mazeWidth;
+    private int mazeWidth;
 
     [SerializeField]
-    private int _mazeDepth;
+    private int mazeDepth;
 
-    private MazeCell[,] _mazeGrid;
+    private MazeCell[,] mazeGrid;
 
     void Start()
     {
-        _mazeGrid = new MazeCell[_mazeWidth, _mazeDepth];
+        mazeGrid = new MazeCell[mazeWidth, mazeDepth];
 
-        for (int x = 0; x < _mazeWidth; x++)
+        for (int x = 0; x < mazeWidth; x++)
         {
-            for (int y = 0; y < _mazeDepth; y++)
+            for (int y = 0; y < mazeDepth; y++)
             {
-                _mazeGrid[x, y] = Instantiate(_mazeCellPrefab, new Vector3(x, y, 0), Quaternion.identity);
+                mazeGrid[x, y] = Instantiate(mazeCellPrefab, new Vector3(x, y, 0), Quaternion.identity);
             }
         }
 
-        GenerateMaze(null, _mazeGrid[0, 0]);
+        GenerateMaze(null, mazeGrid[0, 0]);
 
-        for (int x = 0; x < _mazeWidth; x++)
+        /*for (int x = 0; x < mazeWidth; x++)
         {
-            for (int y = 0; y < _mazeDepth; y++)
+            for (int y = 0; y < mazeDepth; y++)
             {
-                _mazeGrid[x, y].transform.position = new Vector2(x + ((_mazeWidth-1)/-2f),y  + ((_mazeDepth-1)/-2f));
+                mazeGrid[x, y].transform.position = new Vector2(x + ((mazeWidth - 1) / -2f), y + ((mazeDepth - 1) / -2f));
             }
-        }
+        }*/
+
+        Grid grid = GameObject.Find("A*").GetComponent<Grid>();
+        grid.CreateGrid();
     }
 
     private void GenerateMaze(MazeCell previousCell, MazeCell currentCell)
@@ -69,10 +72,10 @@ public class MazeGenerator : MonoBehaviour
         int x = (int)currentCell.transform.position.x;
         int y = (int)currentCell.transform.position.y;
 
-        if (x + 1 < _mazeWidth)
+        if (x + 1 < mazeWidth)
         {
-            var cellToRight = _mazeGrid[x + 1, y];
-            
+            var cellToRight = mazeGrid[x + 1, y];
+
             if (cellToRight.IsVisited == false)
             {
                 yield return cellToRight;
@@ -81,7 +84,7 @@ public class MazeGenerator : MonoBehaviour
 
         if (x - 1 >= 0)
         {
-            var cellToLeft = _mazeGrid[x - 1, y];
+            var cellToLeft = mazeGrid[x - 1, y];
 
             if (cellToLeft.IsVisited == false)
             {
@@ -89,9 +92,9 @@ public class MazeGenerator : MonoBehaviour
             }
         }
 
-        if (y + 1 < _mazeDepth)
+        if (y + 1 < mazeDepth)
         {
-            var cellToFront = _mazeGrid[x, y + 1];
+            var cellToFront = mazeGrid[x, y + 1];
 
             if (cellToFront.IsVisited == false)
             {
@@ -101,7 +104,7 @@ public class MazeGenerator : MonoBehaviour
 
         if (y - 1 >= 0)
         {
-            var cellToBack = _mazeGrid[x, y - 1];
+            var cellToBack = mazeGrid[x, y - 1];
 
             if (cellToBack.IsVisited == false)
             {
@@ -145,5 +148,4 @@ public class MazeGenerator : MonoBehaviour
             return;
         }
     }
-
 }
