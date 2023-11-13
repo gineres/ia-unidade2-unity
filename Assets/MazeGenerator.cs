@@ -1,21 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using System.Linq;
 
 public class MazeGenerator : MonoBehaviour
 {
-    [SerializeField]
-    private MazeCell mazeCellPrefab;
-
-    [SerializeField]
-    private int mazeWidth;
-
-    [SerializeField]
-    private int mazeDepth;
-
-    [SerializeField]
-    private float wallSpacing = 1.5f; // Adjust this value to control the spacing between walls
+    [SerializeField] private MazeCell mazeCellPrefab;
+    [SerializeField] private int mazeWidth;
+    [SerializeField] private int mazeDepth;
+    [SerializeField] private float wallSpacing = 1.5f;
 
     private MazeCell[,] mazeGrid;
 
@@ -23,12 +16,15 @@ public class MazeGenerator : MonoBehaviour
     {
         mazeGrid = new MazeCell[mazeWidth, mazeDepth];
 
+        float centerX = ((mazeWidth - 1) * wallSpacing) / -2f;
+        float centerY = ((mazeDepth - 1) * wallSpacing) / -2f;
+
         for (int x = 0; x < mazeWidth; x++)
         {
             for (int y = 0; y < mazeDepth; y++)
             {
-                float xPos = x * wallSpacing;
-                float yPos = y * wallSpacing;
+                float xPos = x * wallSpacing + centerX;
+                float yPos = y * wallSpacing + centerY;
 
                 mazeGrid[x, y] = Instantiate(mazeCellPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
             }
@@ -38,6 +34,7 @@ public class MazeGenerator : MonoBehaviour
 
         Grid grid = GameObject.Find("A*").GetComponent<Grid>();
         grid.CreateGrid();
+        grid.PlaceEnemies();
     }
 
     private void GenerateMaze(MazeCell previousCell, MazeCell currentCell)
@@ -67,8 +64,8 @@ public class MazeGenerator : MonoBehaviour
 
     private IEnumerable<MazeCell> GetUnvisitedCells(MazeCell currentCell)
     {
-        int x = (int)(currentCell.transform.position.x / wallSpacing);
-        int y = (int)(currentCell.transform.position.y / wallSpacing);
+        int x = Mathf.FloorToInt((currentCell.transform.position.x + (mazeWidth * wallSpacing / 2)) / wallSpacing);
+        int y = Mathf.FloorToInt((currentCell.transform.position.y + (mazeDepth * wallSpacing / 2)) / wallSpacing);
 
         if (x + 1 < mazeWidth)
         {
@@ -110,6 +107,7 @@ public class MazeGenerator : MonoBehaviour
             }
         }
     }
+
 
     private void ClearWalls(MazeCell previousCell, MazeCell currentCell)
     {

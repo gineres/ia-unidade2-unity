@@ -11,11 +11,24 @@ public class Grid : MonoBehaviour
 
     float nodeDiameter;
     int gridSizeX, gridSizeY;
-    public List<Node> path;
+    //public List<Node> path;
+
+    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private int enemiesQuantity = 1;
 
     void OnDrawGizmos()
-    {
-        /*
+    {/*
+        if (nodeGrid != null)
+        {
+            if (path != null)
+            {
+                foreach (Node n in path){
+                    Gizmos.color = Color.black;
+                    Gizmos.DrawWireCube(n.WorldPosition, Vector3.one * (nodeDiameter-.1f));
+                }
+            }
+        }*/
+        
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
 
         if (nodeGrid != null)
@@ -23,16 +36,17 @@ public class Grid : MonoBehaviour
             foreach (Node n in nodeGrid)
             {
                 Gizmos.color = (n.IsWalkable) ? Color.white:Color.red;
+                /*
                 if (path != null)
                 {
                     if (path.Contains(n))
                     {
                         Gizmos.color = Color.black;
                     }
-                }
+                }*/
                 Gizmos.DrawWireCube(n.WorldPosition, Vector3.one * (nodeDiameter-.1f));
             }
-        }*/
+        }
     }
 
     void Start()
@@ -43,6 +57,7 @@ public class Grid : MonoBehaviour
     }
 
     public void CreateGrid(){
+        Debug.Log("criando grid");
         nodeGrid = new Node[gridSizeX, gridSizeY];
         Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x/2 - Vector3.up * gridWorldSize.y/2;
 
@@ -53,6 +68,22 @@ public class Grid : MonoBehaviour
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.up * (y * nodeDiameter + nodeRadius);
                 bool walkable = !(Physics2D.OverlapCircle(worldPoint, nodeRadius, unwalkableMask));
                 nodeGrid[x,y] = new Node(walkable, worldPoint, x, y);
+            }
+        }
+    }
+
+    public void PlaceEnemies(){
+        for (int x = 0; x < enemiesQuantity; x++)
+        {
+            Node enemyNode = nodeGrid[Random.Range(0, gridSizeX-1), Random.Range(0, gridSizeY-1)];
+            if (enemyNode.IsWalkable)
+            {
+                Instantiate(enemyPrefab, enemyNode.WorldPosition, Quaternion.identity);
+            }
+            else
+            {
+                x--;
+                continue;
             }
         }
     }
