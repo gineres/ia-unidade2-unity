@@ -1027,7 +1027,7 @@ MonoBehaviour:
   mazeWidth: 10
   mazeDepth: 10
   wallSpacing: 1.5
-  enemiesQuantity: 5
+  enemiesQuantity: 10
   healQuantity: 5
   bombQuantity: 5
 --- !u!1 &1388984089

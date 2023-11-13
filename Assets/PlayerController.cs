@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(movement.x * speed, movement.y * speed);
         DrawCircle(.01f);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && bombAmount > 0)
         {
             PerformAttack();
             bombAmount--;

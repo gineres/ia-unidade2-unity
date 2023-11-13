@@ -6,7 +6,7 @@ public class EnemyTaskGoToTarget : BehaviourNode
 {
     Transform transform;
     Pathfinding pathfinding;
-    private float moveSpeed = 1f;
+    private float moveSpeed = 2f;
     
     public EnemyTaskGoToTarget(Transform transform, Pathfinding pathfinding){
         this.pathfinding = pathfinding;
