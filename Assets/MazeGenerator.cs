@@ -6,9 +6,15 @@ using System.Linq;
 public class MazeGenerator : MonoBehaviour
 {
     [SerializeField] private MazeCell mazeCellPrefab;
+    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject healPrefab;
+    [SerializeField] private GameObject bombPrefab;
     [SerializeField] private int mazeWidth;
     [SerializeField] private int mazeDepth;
     [SerializeField] private float wallSpacing = 1.5f;
+    [SerializeField] private int enemiesQuantity = 1;
+    [SerializeField] private int healQuantity = 1;
+    [SerializeField] private int bombQuantity = 1;
 
     private MazeCell[,] mazeGrid;
 
@@ -34,7 +40,9 @@ public class MazeGenerator : MonoBehaviour
 
         Grid grid = GameObject.Find("A*").GetComponent<Grid>();
         grid.CreateGrid();
-        grid.PlaceEnemies();
+        grid.PlaceElements(enemyPrefab, enemiesQuantity);
+        grid.PlaceElements(healPrefab, healQuantity);
+        grid.PlaceElements(bombPrefab, bombQuantity);
     }
 
     private void GenerateMaze(MazeCell previousCell, MazeCell currentCell)

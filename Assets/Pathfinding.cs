@@ -93,4 +93,14 @@ public class Pathfinding : MonoBehaviour
 			return 14*dstY + 10* (dstX-dstY);
 		return 14*dstX + 10 * (dstY-dstX);
 	}
+
+    void OnDrawGizmos()
+    {
+        if (foundPath != null){
+            foreach (Node n in foundPath){
+                Gizmos.color = Color.green;
+                Gizmos.DrawWireCube(n.WorldPosition, Vector3.one*.3f);
+            }
+        }
+    }
 }

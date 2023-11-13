@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     Pathfinding pathfinding;
+    [SerializeField] private float moveSpeed = 1f;
     void Start()
     {
         pathfinding = GetComponent<Pathfinding>();
@@ -18,7 +19,7 @@ public class EnemyController : MonoBehaviour
             if (pathfinding.foundPath.Count > 0)
             {
                 Vector3 direction = pathfinding.foundPath[0].WorldPosition - transform.position;
-                transform.Translate(direction.normalized * 2f * Time.deltaTime);
+                transform.Translate(direction.normalized * moveSpeed * Time.deltaTime);
             }
         }
     }

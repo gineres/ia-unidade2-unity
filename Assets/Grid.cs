@@ -13,9 +13,6 @@ public class Grid : MonoBehaviour
     int gridSizeX, gridSizeY;
     //public List<Node> path;
 
-    [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private int enemiesQuantity = 1;
-
     void OnDrawGizmos()
     {/*
         if (nodeGrid != null)
@@ -72,13 +69,13 @@ public class Grid : MonoBehaviour
         }
     }
 
-    public void PlaceEnemies(){
-        for (int x = 0; x < enemiesQuantity; x++)
+    public void PlaceElements(GameObject element, int elementQuantity){
+        for (int x = 0; x < elementQuantity; x++)
         {
             Node enemyNode = nodeGrid[Random.Range(0, gridSizeX-1), Random.Range(0, gridSizeY-1)];
             if (enemyNode.IsWalkable)
             {
-                Instantiate(enemyPrefab, enemyNode.WorldPosition, Quaternion.identity);
+                Instantiate(element, enemyNode.WorldPosition, Quaternion.identity);
             }
             else
             {
