@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tree : MonoBehaviour
+public abstract class Tree : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private BehaviourNode _root = null;
 
-    // Update is called once per frame
+    protected void Start()
+    {
+        _root = SetupTree();
+    }
+    
     void Update()
     {
-        
+        if (_root != null)
+        {
+            _root.Evaluate();
+        }
     }
+
+    protected abstract BehaviourNode SetupTree();
 }
