@@ -14,7 +14,7 @@ public class CheckPlayerInRange : BehaviourNode
         {
             return NodeState.FAILURE;
         }
-        if (pathfinding.foundPath.Count > 40)
+        if (pathfinding.foundPath.Count > 60)
         {
             return NodeState.FAILURE;
         } else

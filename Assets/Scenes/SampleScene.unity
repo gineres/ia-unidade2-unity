@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.9943757, b: 0.5981132, a: 1}
+  m_Color: {r: 0.8679245, g: 0.1342826, b: 0.2416895, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -621,7 +621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -1027,7 +1027,7 @@ MonoBehaviour:
   mazeWidth: 10
   mazeDepth: 10
   wallSpacing: 1.5
-  enemiesQuantity: 10
+  enemiesQuantity: 20
   healQuantity: 5
   bombQuantity: 5
 --- !u!1 &1388984089
@@ -1371,7 +1371,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b2d8e42a5f09de547a99ddfbf1a3224b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
         Vector2 movement = new Vector2(horizontalInput, verticalInput);
         movement.Normalize();
         rb.velocity = new Vector2(movement.x * speed, movement.y * speed);
-        DrawCircle(.01f);
 
         if (Input.GetKeyDown(KeyCode.Space) && bombAmount > 0)
         {
@@ -47,6 +46,7 @@ public class PlayerController : MonoBehaviour
 
     void PerformAttack()
     {
+        DrawCircle(.01f);
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRadius, enemyLayer);
         
 
@@ -109,6 +109,7 @@ public class PlayerController : MonoBehaviour
     {
         var segments = 360;
         var line = GetComponent<LineRenderer>();
+        line.enabled = true;
         line.useWorldSpace = false;
         line.startWidth = lineWidth;
         line.endWidth = lineWidth;
@@ -124,5 +125,13 @@ public class PlayerController : MonoBehaviour
         }
 
         line.SetPositions(points);
+
+        StartCoroutine(FadeOutLine(line, .2f));
+    }
+
+    private IEnumerator FadeOutLine(LineRenderer line, float fadeDuration)
+    {
+        yield return new WaitForSeconds(fadeDuration);
+        line.enabled = false;
     }
 }
