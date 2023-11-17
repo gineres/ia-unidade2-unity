@@ -18,6 +18,13 @@ Mas como o inimigo detecta o quão longe ele está do jogador? Simples. O inimig
 
 Além disso, enquanto o inimigo segue o jogador, foi aplicado o comportamento de navegação "Arrive", não só na chegada do inimigo ao player, mas também na chegada dele em cada uma das células detectadas pelo A*, visto que ele está sempre se movendo à primeira célula mais próxima encontrada pelo pathfinding.
 
+## Controles
+Para jogar o jogo, é necessário um teclado. Os comandos do jogo estão na seguinte tabela:
+|Ação |Controles
+|-----|----------
+|Andar|Setas do teclado ou W,A,S,D
+|Atacar|Barra de espaço
+
 ## Onde jogar?
 
 O jogo está disponível [nessa página](https://ariaronis.itch.io/nomnom), ele pode ser jogado pelo navegador!
